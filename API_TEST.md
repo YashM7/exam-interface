@@ -100,7 +100,33 @@ curl http://localhost:3000/questions
 
 Terminal Output (Success)
 ```bash
-A list of all the questions with answers, I did not added the response here the response was very big 
+[
+    {
+        "_id": "68bd62e6cb815410af2c238d",
+        "question": "Which country has the largest population in the world?",
+        "options": [
+            "India",
+            "USA",
+            "China",
+            "Russia"
+        ],
+        "answer": 0,
+        "__v": 0
+    },
+    {
+        "_id": "68bd62e6cb815410af2c238e",
+        "question": "Mount Everest lies on the border of which two countries?",
+        "options": [
+            "India and Nepal",
+            "China and Nepal",
+            "India and China",
+            "Nepal and Bhutan"
+        ],
+        "answer": 1,
+        "__v": 0
+    },
+    ...
+]
 ```
 
 
@@ -110,7 +136,7 @@ A list of all the questions with answers, I did not added the response here the 
 
 curl http://localhost:3000/randomQuestions
 
-Terminal Output (Success) The output will differ because of the randomness of the questions
+Terminal Output (Success) ⚠️ Output will differ because of randomness.
 ```bash
 [
     {
@@ -124,95 +150,16 @@ Terminal Output (Success) The output will differ because of the randomness of th
         ]
     },
     {
-        "_id": "68bd62e6cb815410af2c23ae",
-        "question": "What is the boiling point of water at sea level?",
+        "_id": "68bd62e6cb815410af2c23b5",
+        "question": "Which metal is liquid at room temperature?",
         "options": [
-            "50°C",
-            "100°C",
-            "150°C",
-            "212°C"
+            "Mercury",
+            "Iron",
+            "Sodium",
+            "Aluminium"
         ]
     },
-    {
-        "_id": "68bd62e6cb815410af2c23b7",
-        "question": "What is the national animal of India?",
-        "options": [
-            "Lion",
-            "Tiger",
-            "Elephant",
-            "Peacock"
-        ]
-    },
-    {
-        "_id": "68bd62e6cb815410af2c23ac",
-        "question": "Which planet has the most moons?",
-        "options": [
-            "Earth",
-            "Saturn",
-            "Jupiter",
-            "Neptune"
-        ]
-    },
-    {
-        "_id": "68bd62e6cb815410af2c23aa",
-        "question": "Which organ in the human body purifies blood?",
-        "options": [
-            "Heart",
-            "Pancreas",
-            "Lungs",
-            "Liver"
-        ]
-    },
-    {
-        "_id": "68bd62e6cb815410af2c23b1",
-        "question": "What is the SI unit of force?",
-        "options": [
-            "Newton",
-            "Joule",
-            "Pascal",
-            "Watt"
-        ]
-    },
-    {
-        "_id": "68bd62e6cb815410af2c23ad",
-        "question": "Which blood type is known as the universal donor?",
-        "options": [
-            "A",
-            "B",
-            "AB",
-            "O negative"
-        ]
-    },
-    {
-        "_id": "68bd62e6cb815410af2c23a9",
-        "question": "Which sport is known as the 'king of sports'?",
-        "options": [
-            "Cricket",
-            "Football",
-            "Tennis",
-            "Basketball"
-        ]
-    },
-    {
-        "_id": "68bd62e6cb815410af2c2393",
-        "question": "In which year did India gain independence?",
-        "options": [
-            "1942",
-            "1945",
-            "1947",
-            "1950"
-        ]
-    },
-    {
-        "_id": "68bd62e6cb815410af2c238e",
-        "question": "Mount Everest lies on the border of which two countries?",
-        "options": [
-            "India and Nepal",
-            "China and Nepal",
-            "India and China",
-            "Nepal and Bhutan"
-        ]
-    }
+    ...
 ]
 ```
 
@@ -228,7 +175,7 @@ Terminal Output (Success will generate unique examId)
 {"examId":"68bdcb3a51d4a71e674b61d0"}
 ```
 
-Terminal Output (Failure will occure if JWT expired or not present)
+Terminal Output (Failure - JWT expired or missing)
 ```bash
 {"error":"Bad Request"}
 ```
@@ -236,12 +183,19 @@ Terminal Output (Failure will occure if JWT expired or not present)
 
 
 ## 8. Get Exam Questions
-**Endpoint:** `GET /exam/:examId`  replace examId from the examId you got after successfully running test 7
-**Description:** Retrieves questions for the given exam.
+**Endpoint:** `GET /exam/:examId`  
+**Description:** Retrieves questions for the given exam. Replace :examId with the ID from Step 7.
 
 curl -b cookies.txt http://localhost:3000/exam/64f2e2f1a5c9d5e123456789
 
-Terminal Output (Success will give a list of random questions along with expiry time and exam submitted status)
+Terminal Output (Success)
+```bash
+{
+  "questions": [...],
+  "expiryTime": "2025-09-07T15:04:05.000Z",
+  "submitted": false
+}
+```
 
 Terminal Output (Failure)
 ```bash
@@ -263,7 +217,7 @@ Terminal Output (Success, submitted within deadline)
 {message: "Exam submitted successfully", score: obtained score}
 ```
 
-Terminal Output (Success, submitted after deadline, this is only for testing)
+Terminal Output (Success, late submission, this is only for testing)
 ```bash
 {message: "Exam submission was late. Your score is 0."}
 ```
