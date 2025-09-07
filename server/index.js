@@ -8,6 +8,7 @@ import { Exam } from "./models/examModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +19,10 @@ app.use(express.json());
 
 // Middleware for cookie
 app.use(cookieParser());
+
+
+// Logs all HTTP requests to the console
+app.use(morgan("combined"));
 
 
 // Middleware for CORS POLICY
