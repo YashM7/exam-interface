@@ -40,18 +40,18 @@ no need to change FRONTEND_URL if you are running locally
 assign JWT_SECRET with a 64 characters long hexadecimal like 4d781bf758a399e9d532c987f29c1bfff4123ac2e6907b7293e604e74220f182
 
 node seedQuestions.js       -> This will populate server with questions
-nodemon index.js        -> This will start the server
+nodemon index.js            -> This will start the server
 
 
 ### 3. Frontend setup (client)
 
 keep the backend server running and open a new terminal
 cd exam-interface/client           -> Go to the client directory
-npm install         -> Install all required dependencies
+npm install                        -> Install all required dependencies
 
 Create a .env file inside client/       -> create .env file and add the following value
 VITE_BACKEND_API_BASE_URL="http://localhost:3000"
-npm run dev         -> This will start the client
+npm run dev                             -> This will start the client
 open your browser and head to http://localhost:5173/
 ```
 
