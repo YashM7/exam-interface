@@ -52,6 +52,7 @@ npm install         -> Install all required dependencies
 Create a .env file inside client/       -> create .env file
 VITE_BACKEND_API_BASE_URL="http://localhost:3000"
 npm run dev         -> This will start the client
+```
 
 ## 📌 API Testing
 
