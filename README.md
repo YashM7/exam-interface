@@ -30,7 +30,7 @@ cd exam-interface
 cd server       -> Go to the server directory
 npm install     -> Install all required dependencies
 
-Create a .env file inside server/       -> create .env file
+Create a .env file inside server/       -> create .env file and add these 3 values
 MONGODB_URL=mongodb+srv://<db_username>:<db_password>@cluster0.loyvej0.mongodb.net/?retryWrites=true&w=majority
 FRONTEND_URL=http://localhost:5173
 JWT_SECRET=your jwt secret phrase
@@ -46,12 +46,13 @@ nodemon index.js        -> This will start the server
 ### 3. Frontend setup (client)
 
 keep the backend server running and open a new terminal
-cd client           -> Go to the client directory
+cd exam-interface/client           -> Go to the client directory
 npm install         -> Install all required dependencies
 
-Create a .env file inside client/       -> create .env file
+Create a .env file inside client/       -> create .env file and add the following value
 VITE_BACKEND_API_BASE_URL="http://localhost:3000"
 npm run dev         -> This will start the client
+open your browser and head to http://localhost:5173/
 ```
 
 ## 📌 API Testing
