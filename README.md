@@ -21,6 +21,7 @@ Before running the app, make sure you have installed:
 
 ### 1. Clone the repository
 
+```bash
 git clone https://github.com/YashM7/exam-interface.git
 cd exam-interface
 
@@ -51,3 +52,7 @@ npm install         -> Install all required dependencies
 Create a .env file inside client/       -> create .env file
 VITE_BACKEND_API_BASE_URL="http://localhost:3000"
 npm run dev         -> This will start the client
+
+## 📌 API Testing
+
+For detailed API testing instructions, see [API_TEST.md](./API_TEST.md)
