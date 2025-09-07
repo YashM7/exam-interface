@@ -14,7 +14,6 @@ This document explains how to test the APIs of this project using `curl`.
 curl http://localhost:3000/ping
 
 Terminal Output
-
 ```bash
 Backend API working
 ```
@@ -33,6 +32,21 @@ curl -X POST http://localhost:3000/signup \
     "password": "mypassword123"
   }'
 
+Terminal Output (Success)
+```bash
+{"message":"User added successfully"}
+```
+
+Terminal Output (Email already exists)
+```bash
+{"conflict":"Email already exists"}
+```
+
+Terminal Output (Failure)
+```bash
+{"error":"Bad Request"}
+```
+
 
 
 ## 3. User Login
@@ -46,12 +60,36 @@ curl -c cookies.txt -X POST http://localhost:3000/login \
     "password":"mypassword123"
   }'
 
+Terminal Output (Success)
+```bash
+{"message":"Login successful"}
+```
+
+Terminal Output (Failure)
+```bash
+{"error":"Invalid email or password"}
+```
 
 ## 4. Check user authorization
 **Endpoint:** `GET /authping`  
 **Description:** Verifies that authentication works using the cookie.
 
 curl -b cookies.txt http://localhost:3000/authping
+
+Terminal Output (Success)
+```bash
+Backend Auth API working
+```
+
+Terminal Output (Failure no token)
+```bash
+{"error":"No token"}
+```
+
+Terminal Output (Failure invalid token)
+```bash
+{"error":"Invalid token"}
+```
 
 
 ## 5. Get all questions
@@ -60,6 +98,10 @@ curl -b cookies.txt http://localhost:3000/authping
 
 curl http://localhost:3000/questions
 
+Terminal Output (Success)
+```bash
+A list of all the questions with answers, I did not added the response here the response was very big 
+```
 
 
 ## 6. Get 10 random questions
@@ -68,6 +110,112 @@ curl http://localhost:3000/questions
 
 curl http://localhost:3000/randomQuestions
 
+Terminal Output (Success) The output will differ because of the randomness of the questions
+```bash
+[
+    {
+        "_id": "68bd62e6cb815410af2c23a2",
+        "question": "Who painted 'The Starry Night'?",
+        "options": [
+            "Van Gogh",
+            "Picasso",
+            "Da Vinci",
+            "Michelangelo"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c23ae",
+        "question": "What is the boiling point of water at sea level?",
+        "options": [
+            "50°C",
+            "100°C",
+            "150°C",
+            "212°C"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c23b7",
+        "question": "What is the national animal of India?",
+        "options": [
+            "Lion",
+            "Tiger",
+            "Elephant",
+            "Peacock"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c23ac",
+        "question": "Which planet has the most moons?",
+        "options": [
+            "Earth",
+            "Saturn",
+            "Jupiter",
+            "Neptune"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c23aa",
+        "question": "Which organ in the human body purifies blood?",
+        "options": [
+            "Heart",
+            "Pancreas",
+            "Lungs",
+            "Liver"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c23b1",
+        "question": "What is the SI unit of force?",
+        "options": [
+            "Newton",
+            "Joule",
+            "Pascal",
+            "Watt"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c23ad",
+        "question": "Which blood type is known as the universal donor?",
+        "options": [
+            "A",
+            "B",
+            "AB",
+            "O negative"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c23a9",
+        "question": "Which sport is known as the 'king of sports'?",
+        "options": [
+            "Cricket",
+            "Football",
+            "Tennis",
+            "Basketball"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c2393",
+        "question": "In which year did India gain independence?",
+        "options": [
+            "1942",
+            "1945",
+            "1947",
+            "1950"
+        ]
+    },
+    {
+        "_id": "68bd62e6cb815410af2c238e",
+        "question": "Mount Everest lies on the border of which two countries?",
+        "options": [
+            "India and Nepal",
+            "China and Nepal",
+            "India and China",
+            "Nepal and Bhutan"
+        ]
+    }
+]
+```
+
 
 ## 7. Start Exam
 **Endpoint:** `POST /exam/start`  
@@ -75,13 +223,30 @@ curl http://localhost:3000/randomQuestions
 
 curl -b cookies.txt -X POST http://localhost:3000/exam/start
 
+Terminal Output (Success will generate unique examId)
+```bash
+{"examId":"68bdcb3a51d4a71e674b61d0"}
+```
+
+Terminal Output (Failure will occure if JWT expired or not present)
+```bash
+{"error":"Bad Request"}
+```
+
 
 
 ## 8. Get Exam Questions
-**Endpoint:** `GET /exam/:examId`  
+**Endpoint:** `GET /exam/:examId`  replace examId from the examId you got after successfully running test 7
 **Description:** Retrieves questions for the given exam.
 
 curl -b cookies.txt http://localhost:3000/exam/64f2e2f1a5c9d5e123456789
+
+Terminal Output (Success will give a list of random questions along with expiry time and exam submitted status)
+
+Terminal Output (Failure)
+```bash
+{"error":"Exam not found"}
+```
 
 
 
@@ -93,6 +258,26 @@ curl -b cookies.txt -X POST http://localhost:3000/exam/64f2e2f1a5c9d5e123456789/
   -H "Content-Type: application/json" \
   -d '{"answers":[0,2,1,3,2,1,0,3,1,2]}'
 
+Terminal Output (Success, submitted within deadline)
+```bash
+{message: "Exam submitted successfully", score: obtained score}
+```
+
+Terminal Output (Success, submitted after deadline, this is only for testing)
+```bash
+{message: "Exam submission was late. Your score is 0."}
+```
+
+Terminal Output (Success, already submitted)
+```bash
+{message: "Exam already submitted", score: obtained score}
+```
+
+Terminal Output (Failure)
+```bash
+{"error":"Exam not found"}
+```
+
 
 
 ## 10. Get Exam Result
@@ -102,3 +287,17 @@ curl -b cookies.txt -X POST http://localhost:3000/exam/64f2e2f1a5c9d5e123456789/
 curl -b cookies.txt http://localhost:3000/exam/64f2e2f1a5c9d5e123456789/result
 
 
+Terminal Output (Success)
+```bash
+{score: obtained score}
+```
+
+Terminal Output (Failure, exam not found)
+```bash
+{error: "Exam not found}
+```
+
+Terminal Output (Failure, exam in progresss)
+```bash
+{message: "Exam in progress}
+```
