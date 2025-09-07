@@ -78,7 +78,7 @@ app.post('/signup', async(req, res) => {
 
     const exist = await User.findOne({email: emailInput});
     if(exist) {
-      return res.status(409).send({ error: "Email already exists" });
+      return res.status(409).send({ conflict: "Email already exists" });
     }
 
     const hashPassword = await bcrypt.hash(passwordInput, 10);
@@ -104,10 +104,10 @@ app.post('/signup', async(req, res) => {
       maxAge: 3600000 
     });
 
-    return res.status(201).send(newUser);
+    return res.status(201).send({message: "User added successfully"});
   } catch (error) {
     console.log(error);
-    return res.status(500).send({error: "Internal Server error"})
+    return res.status(400).send({error: "Bad Request"})
   }
 })
 
