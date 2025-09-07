@@ -202,7 +202,7 @@ app.post("/exam/start", authMiddleware, async(req,res) => {
 
   } catch (error) {
     console.log(error)
-    return res.status(500).send(error);
+    return res.status(400).send({error: "Bad Request"});
   }
 })
 
@@ -214,7 +214,7 @@ app.get("/exam/:examId", authMiddleware, async (req, res) => {
   const exam = await Exam.findById(examId);
 
   if(!exam) {
-    return res.status(404).send({message: "exam not found"});
+    return res.status(404).send({message: "Exam not found"});
   }
   const finalQuestions = exam.questions.map(q => ({
     _id: q._id,
@@ -295,7 +295,7 @@ app.get("/exam/:examId/result", authMiddleware, async (req, res) => {
       return res.status(200).send({score: exam.score});
     }
 
-    return res.status(404).send({error: "Exam in progress"});
+    return res.status(404).send({message: "Exam in progress"});
   }
   return res.status(200).send({score: exam.score});
 })
