@@ -13,6 +13,11 @@ This document explains how to test the APIs of this project using `curl`.
 
 curl http://localhost:3000/ping
 
+Terminal Output
+
+```bash
+Backend API working
+```
 
 
 ## 2. User Signup
