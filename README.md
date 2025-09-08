@@ -17,6 +17,10 @@ Before running the app, make sure you have installed:
 - [MongoDB](https://www.mongodb.com/) (cloud MongoDB Atlas)  
 - Git (to clone the repository)
 
+The working application demo can be found at https://exam-interface-frontend.onrender.com
+
+The application is hosted on a free service (Render) so the first request might make 30 seconds to respond, after then all requests will be normal.
+
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
