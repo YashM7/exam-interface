@@ -104,8 +104,8 @@ app.post('/signup', async(req, res) => {
 
     res.cookie("token", token , {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 3600000 
     });
 
@@ -140,8 +140,8 @@ app.post('/login', async(req, res) => {
 
     res.cookie("token", token , {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 3600000
     });
 
