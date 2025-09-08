@@ -19,7 +19,7 @@ Before running the app, make sure you have installed:
 
 The working application demo can be found at https://exam-interface-frontend.onrender.com
 
-The application is hosted on a free service (Render) so the first request might make 30 seconds to respond, after that all requests will be normal.
+The application is hosted on a free service (Render) so the first request might take 30 seconds to respond, after that all requests will be normal.
 
 ## 🚀 Getting Started
 
