@@ -195,7 +195,7 @@ app.post("/exam/start", authMiddleware, async(req,res) => {
       {$sample: {size: 10}}
     ]);
 
-    const examExpiryTime = new Date(Date.now() + 1 * 60 * 1000);
+    const examExpiryTime = new Date(Date.now() + 5 * 60 * 1000);
     const newExam = new Exam({
       userId: req.user.id,
       questions: examQuestions,
